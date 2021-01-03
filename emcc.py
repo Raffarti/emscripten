@@ -796,9 +796,7 @@ There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR P
   if len(args) == 1 and args[0] == '-v': # -v with no inputs
     # autoconf likes to see 'GNU' in the output to enable shared object support
     print('emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) %s' % shared.EMSCRIPTEN_VERSION, file=sys.stderr)
-    code = shared.check_call([clang, '-v'] + shared.get_clang_flags(), check=False).returncode
-    shared.check_sanity(force=True)
-    return code
+    return shared.check_call([clang, '-v'] + shared.get_clang_flags(), check=False).returncode
 
   if '-dumpmachine' in args:
     print(shared.get_llvm_target())
@@ -2519,7 +2517,6 @@ def parse_args(newargs):
       options.ignore_dynamic_linking = True
     elif arg == '-v':
       shared.PRINT_STAGES = True
-      shared.check_sanity(force=True)
     elif check_arg('--shell-file'):
       options.shell_path = consume_arg_file()
     elif check_arg('--source-map-base'):
